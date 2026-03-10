@@ -1,0 +1,14 @@
+{% extends "events_app/base.html" %} {% block title %}Page Not Found{% endblock
+%} {% block content %}
+<section class="panel">
+  <p class="eyebrow">404 Error</p>
+  <h2>Page not found</h2>
+  <p>
+    The page you requested could not be found, or the event is not publicly
+    available.
+  </p>
+  <a class="button" href="{% url 'events_app:event_list' %}"
+    >Return to approved events</a
+  >
+</section>
+{% endblock %}

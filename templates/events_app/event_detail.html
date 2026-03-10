@@ -1,0 +1,37 @@
+{% extends "events_app/base.html" %} {% block title %}{{ event.title }}{%
+endblock %} {% block content %}
+<section class="panel">
+  <p class="eyebrow">Approved Event</p>
+  <h2>{{ event.title }}</h2>
+  <p>{{ event.description }}</p>
+
+  <div class="meta-list">
+    <div class="meta-item">
+      <strong>Category</strong>
+      <p>{{ event.category.name }}</p>
+    </div>
+    <div class="meta-item">
+      <strong>Location</strong>
+      <p>{{ event.location }}</p>
+    </div>
+    <div class="meta-item">
+      <strong>Start</strong>
+      <p>{{ event.start_datetime|date:"D, d M Y H:i" }}</p>
+    </div>
+    <div class="meta-item">
+      <strong>End</strong>
+      <p>{{ event.end_datetime|date:"D, d M Y H:i" }}</p>
+    </div>
+    <div class="meta-item">
+      <strong>Contact Name</strong>
+      <p>{{ event.contact_name }}</p>
+    </div>
+    <div class="meta-item">
+      <strong>Contact Email</strong>
+      <p>
+        <a href="mailto:{{ event.contact_email }}">{{ event.contact_email }}</a>
+      </p>
+    </div>
+  </div>
+</section>
+{% endblock %}

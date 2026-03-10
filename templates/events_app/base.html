@@ -1,0 +1,264 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{% block title %}Campus Events Directory{% endblock %}</title>
+    <style>
+      :root {
+        color-scheme: light;
+        --bg: #f7f4ed;
+        --surface: #fffdf8;
+        --surface-strong: #efe6d4;
+        --text: #20201d;
+        --muted: #646053;
+        --accent: #22543d;
+        --accent-soft: #d7eadc;
+        --border: #d9cfbf;
+        --danger: #9b2c2c;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        font-family: Georgia, "Times New Roman", serif;
+        background: linear-gradient(180deg, #f3ede1 0%, var(--bg) 100%);
+        color: var(--text);
+      }
+
+      a {
+        color: var(--accent);
+      }
+
+      .site-shell {
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+      }
+
+      .site-header {
+        background: #1e3d2f;
+        color: #f7f4ed;
+        padding: 1.25rem 1.5rem;
+      }
+
+      .site-header h1 {
+        margin: 0;
+        font-size: clamp(1.8rem, 3vw, 2.6rem);
+      }
+
+      .site-header p {
+        margin: 0.5rem 0 0;
+        color: #d7eadc;
+      }
+
+      .site-nav {
+        margin-top: 1rem;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.75rem;
+      }
+
+      .site-nav a {
+        text-decoration: none;
+        color: #f7f4ed;
+        padding: 0.6rem 0.95rem;
+        border: 1px solid rgba(247, 244, 237, 0.3);
+        border-radius: 999px;
+      }
+
+      .content {
+        width: min(1100px, calc(100% - 2rem));
+        margin: 2rem auto 3rem;
+      }
+
+      .panel {
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: 18px;
+        padding: 1.5rem;
+        box-shadow: 0 18px 50px rgba(47, 42, 31, 0.08);
+      }
+
+      .panel + .panel {
+        margin-top: 1.25rem;
+      }
+
+      .grid {
+        display: grid;
+        gap: 1rem;
+      }
+
+      .event-card,
+      .category-card {
+        border: 1px solid var(--border);
+        border-radius: 16px;
+        padding: 1.1rem;
+        background: linear-gradient(180deg, #fffdf8 0%, #faf6ee 100%);
+      }
+
+      .eyebrow {
+        color: var(--muted);
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        font-size: 0.8rem;
+      }
+
+      .message-list {
+        list-style: none;
+        padding: 0;
+        margin: 0 0 1rem;
+      }
+
+      .message-list li {
+        padding: 0.9rem 1rem;
+        border-radius: 12px;
+        background: var(--accent-soft);
+        border: 1px solid #b7d4bf;
+      }
+
+      .form-grid {
+        display: grid;
+        gap: 1rem;
+        grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      }
+
+      .form-field {
+        display: flex;
+        flex-direction: column;
+        gap: 0.45rem;
+      }
+
+      .form-field.full {
+        grid-column: 1 / -1;
+      }
+
+      label {
+        font-weight: 700;
+      }
+
+      input,
+      select,
+      textarea {
+        width: 100%;
+        padding: 0.8rem 0.9rem;
+        border-radius: 10px;
+        border: 1px solid var(--border);
+        background: #fffefb;
+        font: inherit;
+      }
+
+      .button,
+      button {
+        border: none;
+        border-radius: 999px;
+        padding: 0.85rem 1.2rem;
+        background: var(--accent);
+        color: white;
+        font: inherit;
+        cursor: pointer;
+        text-decoration: none;
+        display: inline-block;
+      }
+
+      .search-row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.75rem;
+        align-items: end;
+      }
+
+      .search-row .form-field {
+        flex: 1 1 280px;
+      }
+
+      .meta-list {
+        display: grid;
+        gap: 0.75rem;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      }
+
+      .meta-item {
+        padding: 1rem;
+        border: 1px solid var(--border);
+        border-radius: 14px;
+        background: #fcfaf5;
+      }
+
+      .errorlist {
+        margin: 0;
+        padding-left: 1.2rem;
+        color: var(--danger);
+      }
+
+      .pagination {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+        margin-top: 1.25rem;
+        align-items: center;
+      }
+
+      .pagination a,
+      .pagination span {
+        padding: 0.6rem 0.85rem;
+        border-radius: 999px;
+        border: 1px solid var(--border);
+        text-decoration: none;
+        color: var(--text);
+        background: #fffefb;
+      }
+
+      .pagination .current {
+        background: var(--surface-strong);
+        font-weight: 700;
+      }
+
+      .empty-state {
+        color: var(--muted);
+        font-style: italic;
+      }
+
+      @media (max-width: 640px) {
+        .content {
+          width: min(100% - 1rem, 1100px);
+        }
+
+        .site-header,
+        .panel {
+          padding: 1rem;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="site-shell">
+      <header class="site-header">
+        <h1>Campus Events Directory</h1>
+        <p>
+          Browse approved events, explore categories, and submit new activities
+          for moderation.
+        </p>
+        <nav class="site-nav">
+          <a href="{% url 'events_app:event_list' %}">Approved Events</a>
+          <a href="{% url 'events_app:category_list' %}">Categories</a>
+          <a href="{% url 'events_app:event_create' %}">Submit Event</a>
+          <a href="/admin/">Admin</a>
+        </nav>
+      </header>
+
+      <main class="content">
+        {% if messages %}
+        <ul class="message-list">
+          {% for message in messages %}
+          <li>{{ message }}</li>
+          {% endfor %}
+        </ul>
+        {% endif %} {% block content %}{% endblock %}
+      </main>
+    </div>
+  </body>
+</html>

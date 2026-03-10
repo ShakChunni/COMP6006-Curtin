@@ -1,0 +1,46 @@
+{% extends "events_app/base.html" %} {% block title %}{{ category.name }}
+Events{% endblock %} {% block content %}
+<section class="panel">
+  <p class="eyebrow">Category View</p>
+  <h2>{{ category.name }}</h2>
+  <p>
+    {{ category.description|default:"This category does not have a description
+    yet." }}
+  </p>
+
+  <form method="get" class="search-row">
+    <div class="form-field">
+      <label for="search">Search in this category</label>
+      <input
+        id="search"
+        type="search"
+        name="q"
+        value="{{ search_query }}"
+        placeholder="Search approved events in {{ category.name }}"
+      />
+    </div>
+    <button type="submit">Search</button>
+  </form>
+</section>
+
+<section class="panel grid">
+  {% for event in page_obj %}
+  <article class="event-card">
+    <p class="eyebrow">{{ category.name }}</p>
+    <h3>
+      <a href="{% url 'events_app:event_detail' event.pk %}"
+        >{{ event.title }}</a
+      >
+    </h3>
+    <p>{{ event.description|truncatewords:25 }}</p>
+    <p><strong>Location:</strong> {{ event.location }}</p>
+    <p>
+      <strong>Starts:</strong> {{ event.start_datetime|date:"D, d M Y H:i" }}
+    </p>
+  </article>
+  {% empty %}
+  <p class="empty-state">No approved events matched this category view.</p>
+  {% endfor %} {% include "events_app/pagination.html" with page_obj=page_obj
+  search_query=search_query %}
+</section>
+{% endblock %}

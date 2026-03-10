@@ -1,0 +1,43 @@
+{% extends "events_app/base.html" %} {% block title %}Approved Events{% endblock
+%} {% block content %}
+<section class="panel">
+  <p class="eyebrow">Public Listing</p>
+  <h2>Approved Events</h2>
+  <p>Only events approved by an administrator appear here.</p>
+
+  <form method="get" class="search-row">
+    <div class="form-field">
+      <label for="search">Search events</label>
+      <input
+        id="search"
+        type="search"
+        name="q"
+        value="{{ search_query }}"
+        placeholder="Search by title, location, category, or description"
+      />
+    </div>
+    <button type="submit">Search</button>
+  </form>
+</section>
+
+<section class="panel grid">
+  {% for event in page_obj %}
+  <article class="event-card">
+    <p class="eyebrow">{{ event.category.name }}</p>
+    <h3>
+      <a href="{% url 'events_app:event_detail' event.pk %}"
+        >{{ event.title }}</a
+      >
+    </h3>
+    <p>{{ event.description|truncatewords:28 }}</p>
+    <p><strong>Location:</strong> {{ event.location }}</p>
+    <p>
+      <strong>Starts:</strong> {{ event.start_datetime|date:"D, d M Y H:i" }}
+    </p>
+  </article>
+  {% empty %}
+  <p class="empty-state">No approved events matched your search.</p>
+  {% endfor %} {% include "events_app/pagination.html" with page_obj=page_obj
+  search_query=search_query %}
+</section>
+{% endblock %}

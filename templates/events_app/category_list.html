@@ -1,0 +1,26 @@
+{% extends "events_app/base.html" %} {% block title %}Categories{% endblock %}
+{% block content %}
+<section class="panel">
+  <p class="eyebrow">Read Only Categories</p>
+  <h2>Event Categories</h2>
+  <p>Categories are maintained through the Django admin panel.</p>
+</section>
+
+<section class="panel grid">
+  {% for category in categories %}
+  <article class="category-card">
+    <h3>
+      <a href="{% url 'events_app:category_events' category.pk %}"
+        >{{ category.name }}</a
+      >
+    </h3>
+    <p>
+      {{ category.description|default:"No description has been added for this
+      category yet." }}
+    </p>
+  </article>
+  {% empty %}
+  <p class="empty-state">No categories have been created yet.</p>
+  {% endfor %}
+</section>
+{% endblock %}
