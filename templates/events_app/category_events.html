@@ -1,11 +1,11 @@
-{% extends "events_app/base.html" %} {% block title %} {{ category.name }}
-Events {% endblock %} {% block content %}
+{% extends "events_app/base.html" %}
+{% block title %}{{ category.name }} Events{% endblock %}
+{% block content %}
 <section class="panel">
   <p class="eyebrow">Category View</p>
   <h2>{{ category.name }}</h2>
   <p>
-    {{ category.description|default:"This category does not have a description
-    yet." }}
+    {{ category.description|default:"This category does not have a description yet." }}
   </p>
 
   <form method="get" class="search-row">
@@ -40,7 +40,7 @@ Events {% endblock %} {% block content %}
   </article>
   {% empty %}
   <p class="empty-state">No approved events matched this category view.</p>
-  {% endfor %} {% include "events_app/pagination.html" with page_obj=page_obj
-  search_query=search_query %}
+  {% endfor %}
+  {% include "events_app/pagination.html" with page_obj=page_obj search_query=search_query %}
 </section>
 {% endblock %}
