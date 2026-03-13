@@ -17,8 +17,16 @@ class EventSubmissionForm(forms.ModelForm):
             "contact_email",
         ]
         widgets = {
-            "start_datetime": forms.DateTimeInput(attrs={"type": "datetime-local"}),
-            "end_datetime": forms.DateTimeInput(attrs={"type": "datetime-local"}),
+            "start_datetime": forms.DateTimeInput(
+                attrs={
+                    "type": "datetime-local",
+                    "step": "60",
+                    "id": "id_start_datetime",
+                }
+            ),
+            "end_datetime": forms.DateTimeInput(
+                attrs={"type": "datetime-local", "step": "60", "id": "id_end_datetime"}
+            ),
         }
 
     def __init__(self, *args, **kwargs):
@@ -28,6 +36,9 @@ class EventSubmissionForm(forms.ModelForm):
             if field_name in {"description"}:
                 field.widget.attrs.update({"rows": 5})
             field.widget.attrs.setdefault("class", "form-control")
+
+        self.fields["start_datetime"].widget.attrs.setdefault("autocomplete", "off")
+        self.fields["end_datetime"].widget.attrs.setdefault("autocomplete", "off")
 
     def clean(self):
         cleaned_data = super().clean()

@@ -123,17 +123,22 @@
       .form-grid {
         display: grid;
         gap: 1rem;
-        grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+        grid-template-columns: repeat(12, minmax(0, 1fr));
       }
 
       .form-field {
         display: flex;
         flex-direction: column;
         gap: 0.45rem;
+        grid-column: span 3;
       }
 
       .form-field.full {
         grid-column: 1 / -1;
+      }
+
+      .form-field.half {
+        grid-column: span 6;
       }
 
       label {
@@ -225,6 +230,11 @@
       @media (max-width: 640px) {
         .content {
           width: min(100% - 1rem, 1100px);
+        }
+
+        .form-field,
+        .form-field.half {
+          grid-column: 1 / -1;
         }
 
         .site-header,

@@ -10,15 +10,64 @@
 
   <form method="post" class="form-grid">
     {% csrf_token %} {% for field in form %}
-    <div class="form-field {% if field.name == 'description' %}full{% endif %}">
+    <div
+      class="form-field{% if field.name == 'title' or field.name == 'description' %} full{% elif field.name == 'contact_name' or field.name == 'contact_email' %} half{% endif %}"
+    >
       <label for="{{ field.id_for_label }}">{{ field.label }}</label>
       {{ field }} {{ field.errors }}
     </div>
     {% endfor %}
 
     <div class="form-field full">
+      <small id="datetime-help" style="color: #646053">
+        End date and time must be later than start date and time.
+      </small>
+    </div>
+
+    <div class="form-field full">
       <button type="submit">Submit Event</button>
     </div>
   </form>
 </section>
+
+<script>
+  (function () {
+    const startInput = document.getElementById("id_start_datetime");
+    const endInput = document.getElementById("id_end_datetime");
+
+    if (!startInput || !endInput) {
+      return;
+    }
+
+    function syncEndMin() {
+      if (startInput.value) {
+        endInput.disabled = false;
+        endInput.min = startInput.value;
+      } else {
+        endInput.disabled = true;
+        endInput.value = "";
+        endInput.removeAttribute("min");
+      }
+
+      if (
+        endInput.value &&
+        startInput.value &&
+        endInput.value <= startInput.value
+      ) {
+        endInput.setCustomValidity(
+          "End date and time must be later than the start date and time.",
+        );
+        endInput.value = "";
+      } else {
+        endInput.setCustomValidity("");
+      }
+    }
+
+    startInput.addEventListener("change", syncEndMin);
+    startInput.addEventListener("input", syncEndMin);
+    endInput.addEventListener("change", syncEndMin);
+    endInput.addEventListener("input", syncEndMin);
+    syncEndMin();
+  })();
+</script>
 {% endblock %}
