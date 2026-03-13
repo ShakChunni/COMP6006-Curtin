@@ -193,6 +193,35 @@
         background: #fcfaf5;
       }
 
+      .detail-list {
+        margin-top: 1.2rem;
+        border: 1px solid var(--border);
+        border-radius: 14px;
+        overflow: hidden;
+      }
+
+      .detail-row {
+        display: grid;
+        grid-template-columns: 180px 1fr;
+        gap: 1rem;
+        padding: 0.9rem 1rem;
+        background: #fffefb;
+        border-bottom: 1px solid var(--border);
+      }
+
+      .detail-row:last-child {
+        border-bottom: none;
+      }
+
+      .detail-row dt {
+        font-weight: 700;
+        color: var(--muted);
+      }
+
+      .detail-row dd {
+        margin: 0;
+      }
+
       .errorlist {
         margin: 0;
         padding-left: 1.2rem;
@@ -240,6 +269,11 @@
         .site-header,
         .panel {
           padding: 1rem;
+        }
+
+        .detail-row {
+          grid-template-columns: 1fr;
+          gap: 0.35rem;
         }
       }
     </style>

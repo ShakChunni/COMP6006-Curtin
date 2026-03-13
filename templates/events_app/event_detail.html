@@ -6,33 +6,31 @@
   <h2>{{ event.title }}</h2>
   <p>{{ event.description }}</p>
 
-  <div class="meta-list">
-    <div class="meta-item">
-      <strong>Category</strong>
-      <p>{{ event.category.name }}</p>
+  <dl class="detail-list">
+    <div class="detail-row">
+      <dt>Category</dt>
+      <dd>{{ event.category.name }}</dd>
     </div>
-    <div class="meta-item">
-      <strong>Location</strong>
-      <p>{{ event.location }}</p>
+    <div class="detail-row">
+      <dt>Location</dt>
+      <dd>{{ event.location }}</dd>
     </div>
-    <div class="meta-item">
-      <strong>Start</strong>
-      <p>{{ event.start_datetime|date:"D, d M Y H:i" }}</p>
+    <div class="detail-row">
+      <dt>Start</dt>
+      <dd>{{ event.start_datetime|date:"D, d M Y H:i" }}</dd>
     </div>
-    <div class="meta-item">
-      <strong>End</strong>
-      <p>{{ event.end_datetime|date:"D, d M Y H:i" }}</p>
+    <div class="detail-row">
+      <dt>End</dt>
+      <dd>{{ event.end_datetime|date:"D, d M Y H:i" }}</dd>
     </div>
-    <div class="meta-item">
-      <strong>Contact Name</strong>
-      <p>{{ event.contact_name }}</p>
+    <div class="detail-row">
+      <dt>Contact Name</dt>
+      <dd>{{ event.contact_name }}</dd>
     </div>
-    <div class="meta-item">
-      <strong>Contact Email</strong>
-      <p>
-        <a href="mailto:{{ event.contact_email }}">{{ event.contact_email }}</a>
-      </p>
+    <div class="detail-row">
+      <dt>Contact Email</dt>
+      <dd><a href="mailto:{{ event.contact_email }}">{{ event.contact_email }}</a></dd>
     </div>
-  </div>
+  </dl>
 </section>
 {% endblock %}
