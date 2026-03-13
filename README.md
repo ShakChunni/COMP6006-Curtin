@@ -1,86 +1,92 @@
-# Campus Events Directory
+# Campus Events Directory (Assignment 1)
 
-This project is a Django web application for browsing campus events and submitting new events for admin approval.
+I built this Django web application for Assignment 1 of COMP6006. It allows public users to browse approved campus events and submit new events for admin approval.
 
-## Features
+This submission contains one folder: `234722097_assignment1`.
 
-- Public event submission form with CSRF protection.
-- Admin-managed event categories.
-- Moderation workflow for all submitted events.
-- Approved-only public listings and detail pages.
-- Category pages for approved events.
-- Search across approved events.
-- Pagination for public event listings.
-- Custom 404 and 500 templates.
+## What I Covered
 
-## Project Structure
+- Project: `campus_events`
+- App: `events_app`
+- Models: `Category` and `Event`
+- Moderation workflow with `is_approved` and `approved_at`, timezone set to Perth, WA.
+- Public event submission form
+- Approved-only event list and event detail pages
+- Category list and category event pages
+- Custom `404` and `500` error pages
+- Basic search, pagination, validation, and admin moderation support
 
-- `campus_events/`: project settings and root URL configuration.
-- `events_app/`: models, form, views, admin configuration, tests, and routes.
-- `templates/`: project templates, including error pages.
+## Requirements
 
-## Setup
+- Python 3.10+
+- Django
 
-Use the existing virtual environment for this workspace.
+## Optional Virtual Environment
 
-```bash
-cd /Users/ashfaq/Studies/COMP6006/assignment1
-/Users/ashfaq/Studies/COMP6006/.venv/bin/python manage.py migrate
-```
-
-## Run The Server
+I recommend using a virtual environment:
 
 ```bash
-cd /Users/ashfaq/Studies/COMP6006/assignment1
-/Users/ashfaq/Studies/COMP6006/.venv/bin/python manage.py runserver
+python -m venv .venv
+source .venv/bin/activate
+pip install django
 ```
 
-Open `http://127.0.0.1:8000/` to view approved events.
+## Run the Project
 
-## Create A Superuser
+From inside the `assignment1` folder:
 
 ```bash
-cd /Users/ashfaq/Studies/COMP6006/assignment1
-/Users/ashfaq/Studies/COMP6006/.venv/bin/python manage.py createsuperuser
+python manage.py migrate
+python manage.py runserver
 ```
 
-Then sign in at `http://127.0.0.1:8000/admin/`.
+Open: `http://127.0.0.1:8000/`
 
-## Moderation Workflow
+## Create Admin User
 
-1. A visitor submits an event from the public form.
-2. The event is saved with `is_approved=False`.
-3. The event does not appear on public listings or detail pages.
-4. An admin approves the event in Django admin.
-5. Once approved, the event becomes visible on the public pages.
+```bash
+python manage.py createsuperuser
+```
 
-## Search And Pagination
+Then log in at: `http://127.0.0.1:8000/admin/`
 
-- The main approved events page supports keyword search.
-- Category event pages also support keyword search within that category.
-- Public event listings are paginated with 5 events per page.
+## Moderation Flow
 
-## Validation
+1. A user submits an event through `/events/create/`.
+2. The event is saved as pending (`is_approved=False`).
+3. Pending events are not visible on public pages.
+4. I approve events in Django admin by setting `is_approved=True`.
+5. Approved events become visible in public listings and detail pages.
 
-- Required fields are enforced through the Django form.
-- `contact_email` uses Django's email validation.
+## Security and Validation
+
+- CSRF token is included in the event submission form.
+- `get_object_or_404()` is used for safe event detail retrieval.
+- Email is validated with `EmailField`.
 - `end_datetime` must be later than `start_datetime`.
 
-## Custom Error Pages
-
-Custom 404 and 500 pages are included.
-
-To test them locally, set `DEBUG = False` in `campus_events/settings.py` and run the server with the existing `ALLOWED_HOSTS` values.
-
-## Run Tests
+## Test Commands
 
 ```bash
-cd /Users/ashfaq/Studies/COMP6006/assignment1
-/Users/ashfaq/Studies/COMP6006/.venv/bin/python manage.py test
+python manage.py test
+python manage.py check
 ```
 
-## Notes
+## Viewing Custom 404 and 500 Pages
 
-- Categories are created and maintained through the Django admin panel.
-- Public users cannot approve events.
-- The declaration of originality should be written and signed by the submitting student.
+During development, Django shows a technical debug error page when `DEBUG=True`.
+To see my custom `404.html` and `500.html` templates:
+
+1. Open `campus_events/settings.py` and set `DEBUG = False`.
+2. Keep `ALLOWED_HOSTS` set for local use (for example: `127.0.0.1`, `localhost`).
+3. Run the server:
+
+```bash
+python manage.py runserver
+```
+
+4. Test custom 404 by visiting a missing URL, for example:
+	- `http://127.0.0.1:8000/categories/9999/`
+5. Test custom 500 by temporarily raising an exception in a view, then reload that page.
+
+After testing, set `DEBUG = True` again for normal development.
