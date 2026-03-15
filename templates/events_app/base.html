@@ -7,14 +7,14 @@
     <style>
       :root {
         color-scheme: light;
-        --bg: #f7f4ed;
-        --surface: #fffdf8;
-        --surface-strong: #efe6d4;
-        --text: #20201d;
-        --muted: #646053;
-        --accent: #22543d;
-        --accent-soft: #d7eadc;
-        --border: #d9cfbf;
+        --bg: #fcfcfc;
+        --surface: #ffffff;
+        --surface-strong: #fff2b8;
+        --text: #1f1f1f;
+        --muted: #5a5a5a;
+        --accent: #2f2f2f;
+        --accent-soft: #fff8d9;
+        --border: #e3e3e3;
         --danger: #9b2c2c;
       }
 
@@ -25,7 +25,7 @@
       body {
         margin: 0;
         font-family: Georgia, "Times New Roman", serif;
-        background: linear-gradient(180deg, #f3ede1 0%, var(--bg) 100%);
+        background: var(--bg);
         color: var(--text);
       }
 
@@ -40,8 +40,8 @@
       }
 
       .site-header {
-        background: #1e3d2f;
-        color: #f7f4ed;
+        background: #2c2c2c;
+        color: #ffd54f;
         padding: 1.25rem 1.5rem;
       }
 
@@ -52,7 +52,7 @@
 
       .site-header p {
         margin: 0.5rem 0 0;
-        color: #d7eadc;
+        color: #ffefad;
       }
 
       .site-nav {
@@ -64,9 +64,9 @@
 
       .site-nav a {
         text-decoration: none;
-        color: #f7f4ed;
+        color: #ffe48a;
         padding: 0.6rem 0.95rem;
-        border: 1px solid rgba(247, 244, 237, 0.3);
+        border: 1px solid rgba(255, 212, 79, 0.6);
         border-radius: 999px;
       }
 
@@ -80,7 +80,7 @@
         border: 1px solid var(--border);
         border-radius: 18px;
         padding: 1.5rem;
-        box-shadow: 0 18px 50px rgba(47, 42, 31, 0.08);
+        box-shadow: 0 10px 24px rgba(24, 24, 24, 0.06);
       }
 
       .panel + .panel {
@@ -97,7 +97,7 @@
         border: 1px solid var(--border);
         border-radius: 16px;
         padding: 1.1rem;
-        background: linear-gradient(180deg, #fffdf8 0%, #faf6ee 100%);
+        background: #ffffff;
       }
 
       .eyebrow {
@@ -117,7 +117,7 @@
         padding: 0.9rem 1rem;
         border-radius: 12px;
         background: var(--accent-soft);
-        border: 1px solid #b7d4bf;
+        border: 1px solid #f3d56a;
       }
 
       .form-grid {
@@ -152,7 +152,7 @@
         padding: 0.8rem 0.9rem;
         border-radius: 10px;
         border: 1px solid var(--border);
-        background: #fffefb;
+        background: #ffffff;
         font: inherit;
       }
 
@@ -161,8 +161,8 @@
         border: none;
         border-radius: 999px;
         padding: 0.85rem 1.2rem;
-        background: var(--accent);
-        color: white;
+        background: #ffd54f;
+        color: #1f1f1f;
         font: inherit;
         cursor: pointer;
         text-decoration: none;
@@ -190,7 +190,7 @@
         padding: 1rem;
         border: 1px solid var(--border);
         border-radius: 14px;
-        background: #fcfaf5;
+        background: #ffffff;
       }
 
       .detail-list {
@@ -205,7 +205,7 @@
         grid-template-columns: 180px 1fr;
         gap: 1rem;
         padding: 0.9rem 1rem;
-        background: #fffefb;
+        background: #ffffff;
         border-bottom: 1px solid var(--border);
       }
 
@@ -243,7 +243,7 @@
         border: 1px solid var(--border);
         text-decoration: none;
         color: var(--text);
-        background: #fffefb;
+        background: #ffffff;
       }
 
       .pagination .current {
